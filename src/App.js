@@ -1,17 +1,17 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import './App.css'; // CSS 파일 import
+import './App.css';
 
 const App = () => {
   const [shows, setShows] = useState([]);
-  const [tvShows, setTvShows] = useState('movie'); // 기본값을 "movie"로 설정
+  const [tvShows, setTvShows] = useState('movie'); 
 
   const getShows = () => {
     axios.get(
       `https://api.themoviedb.org/3/discover/${tvShows}?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`,
       {
         headers: {
-          Authorization: `Bearer ${process.env.REACT_APP_TMDB_API_KEY}`, // Bearer Token 사용
+          Authorization: `Bearer ${process.env.REACT_APP_TMDB_API_KEY}`,
         }
       }
     ).then((response) => {
@@ -22,9 +22,8 @@ const App = () => {
 
   useEffect(() => {
     getShows();
-  }, [tvShows]); // 의존성 배열에 tvShows 추가
+  }, [tvShows]);
 
-  // 첫 번째 쇼를 기반으로 이미지 URL, 제목, 설명 설정
   const firstShow = shows[0] || {};
   const imageUrl = firstShow.poster_path ? `https://image.tmdb.org/t/p/original${firstShow.poster_path}` : '';
   
